@@ -2,16 +2,10 @@ const mongoose = require("mongoose");
 
 const customerSchema = new mongoose.Schema(
   {
-    fullname: {
-      firstname: {
-        type: String,
-        required: true,
-        minlength: [3, "First name must be at least 3 characters long"],
-      },
-      lastname: {
-        type: String,
-        minlength: [3, "Last name must be at least 3 characters long"],
-      },
+    name: {
+      type: String,
+      required: true,
+      minlength: [3, "Name must be at least 3 characters long"],
     },
     email: {
       type: String,
@@ -21,7 +15,7 @@ const customerSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ["Male", "Female", "Others"],
+      enum: ["Male", "Female", "Other"],
     },
     dob: {
       type: Date,
@@ -57,5 +51,3 @@ const customerSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("customer", customerSchema);
-
-customers
