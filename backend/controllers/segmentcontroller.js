@@ -119,13 +119,23 @@ async function calculateAudienceSize(criteria, userId) {
     }
 
     if (criteria.includes("gender =")) {
-      const gender = criteria.match(/gender = "([^"]+)"/)?.[1]
-      if (gender) query.gender = gender
+      let gender = criteria.match(/gender = "([^\"]+)"/)?.[1]
+      if (gender) query.gender = { $regex: `^${gender.trim()}$`, $options: 'i' };
     }
-
+    console.log("criteria", criteria);
     if (criteria.includes("visitCount >")) {
       const visits = Number.parseInt(criteria.match(/visitCount > (\d+)/)?.[1] || 0)
       query.visitCount = { $gt: visits }
+    }
+
+    if (criteria.includes("lastPurchase >")) {
+      const dateStr = criteria.match(/lastPurchase > "([^"]+)"/)?.[1];
+      if (dateStr) {
+        const date = new Date(dateStr);
+        if (!isNaN(date)) {
+          query.lastPurchase = { $gt: date };
+        }
+      }
     }
 
     const count = await Customer.countDocuments(query)
