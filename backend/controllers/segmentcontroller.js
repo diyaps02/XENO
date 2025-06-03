@@ -118,22 +118,45 @@ async function calculateAudienceSize(criteria, userId) {
       query.totalSpend = { $gt: amount }
     }
 
-    if (criteria.includes("gender =")) {
-      let gender = criteria.match(/gender = "([^\"]+)"/)?.[1]
-      if (gender) query.gender = { $regex: `^${gender.trim()}$`, $options: 'i' };
-    }
-    console.log("criteria", criteria);
-    if (criteria.includes("visitCount >")) {
-      const visits = Number.parseInt(criteria.match(/visitCount > (\d+)/)?.[1] || 0)
-      query.visitCount = { $gt: visits }
+    // Handle totalSpend
+    let totalSpendMatch = criteria.match(/totalSpend\s*([><=])\s*(\d+)/);
+    if (totalSpendMatch) {
+      const op = totalSpendMatch[1];
+      const amount = Number.parseInt(totalSpendMatch[2] || 0);
+      if (op === '>') query.totalSpend = { $gt: amount };
+      else if (op === '<') query.totalSpend = { $lt: amount };
+      else if (op === '=') query.totalSpend = amount;
     }
 
-    if (criteria.includes("lastPurchase >")) {
-      const dateStr = criteria.match(/lastPurchase > "([^"]+)"/)?.[1];
+    // Handle gender (still only equality makes sense)
+    let gender = criteria.match(/gender\s*[=>]\s*"([^"]+)"/)?.[1]
+    if (gender) {
+      query.gender = { $regex: `^${gender.trim()}$`, $options: 'i' };
+      console.log("Gender regex query:", query.gender);
+    }
+
+    // Handle visitCount
+    let visitCountMatch = criteria.match(/visitCount\s*([><=])\s*(\d+)/);
+    if (visitCountMatch) {
+      const op = visitCountMatch[1];
+      const visits = Number.parseInt(visitCountMatch[2] || 0);
+      if (op === '>') query.visitCount = { $gt: visits };
+      else if (op === '<') query.visitCount = { $lt: visits };
+      else if (op === '=') query.visitCount = visits;
+    }
+
+    // Handle lastPurchase (date)
+    let lastPurchaseMatch = criteria.match(/lastPurchase\s*([><=])\s*"([^"]+)"/);
+    if (lastPurchaseMatch) {
+      const op = lastPurchaseMatch[1];
+      const dateStr = lastPurchaseMatch[2];
       if (dateStr) {
         const date = new Date(dateStr);
         if (!isNaN(date)) {
-          query.lastPurchase = { $gt: date };
+          if (op === '>') query.lastPurchase = { $gt: date };
+          else if (op === '<') query.lastPurchase = { $lt: date };
+          else if (op === '=') query.lastPurchase = date;
+          console.log("LastPurchase query:", query.lastPurchase);
         }
       }
     }

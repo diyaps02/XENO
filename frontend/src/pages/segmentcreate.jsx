@@ -36,6 +36,7 @@ const SegmentCreate = () => {
 
   const handleRulesChange = (criteria) => {
     setFormData({ ...formData, criteria })
+    // Do not trigger handlePreview here
   }
 
   const handlePreview = async () => {

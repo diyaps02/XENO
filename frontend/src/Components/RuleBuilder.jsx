@@ -52,6 +52,10 @@ const RuleBuilder = ({ onRulesChange, onPreview }) => {
         let ruleString = ""
         if (rule.field === "gender") {
           ruleString = `${rule.field} ${rule.operator} "${rule.value}"`
+        } else if (rule.field === "lastPurchase") {
+          // Format date as YYYY-MM-DD for criteria string
+          const formattedDate = rule.value ? new Date(rule.value).toISOString().split('T')[0] : "";
+          ruleString = `${rule.field} ${rule.operator} "${formattedDate}"`
         } else {
           ruleString = `${rule.field} ${rule.operator} ${rule.value}`
         }
@@ -67,6 +71,11 @@ const RuleBuilder = ({ onRulesChange, onPreview }) => {
     onRulesChange(criteria)
   }
 
+  const handlePreviewClick = () => {
+    updateCriteria(rules);
+    if (onPreview) onPreview();
+  };
+
   const getValueInput = (rule, index) => {
     if (rule.field === "gender") {
       return (
@@ -80,6 +89,15 @@ const RuleBuilder = ({ onRulesChange, onPreview }) => {
           <option value="Female">Female</option>
           <option value="Other">Other</option>
         </select>
+      )
+    } else if (rule.field === "lastPurchase") {
+      return (
+        <input
+          type="date"
+          value={rule.value}
+          onChange={(e) => updateRule(index, "value", e.target.value)}
+          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       )
     }
 
@@ -150,7 +168,7 @@ const RuleBuilder = ({ onRulesChange, onPreview }) => {
         </div>
       ))}
 
-      <button onClick={onPreview} className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
+      <button onClick={handlePreviewClick} className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
         Preview Audience Size
       </button>
     </div>

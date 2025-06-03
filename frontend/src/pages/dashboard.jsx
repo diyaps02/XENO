@@ -168,7 +168,7 @@ const Dashboard = () => {
         </div>
 
         {/* CSV Upload Form */}
-        <div className="mb-8 mt-32">
+        <div className="mb-8 mt-32 mr-96">
           <CsvUploadForm />
         </div>
         
