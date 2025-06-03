@@ -5,7 +5,7 @@ const User = require('../models/usermodel');
 require('dotenv').config();
 
 passport.serializeUser((user, done) => {
-  done(null, user.id); 
+  done(null, user._id); 
 });
 
 passport.deserializeUser(async (id, done) => {
@@ -24,26 +24,23 @@ passport.use(new GoogleStrategy({
 },
 async (accessToken, refreshToken, profile, done) => {
   try {
-    const existingUser = await User.findOne({ googleId: profile.id });
-
-    if (existingUser) {
-      return done(null, existingUser);
+    let user = await User.findOne({ googleId: profile.id });
+    if (user) {
+      return done(null, user);
     }
-
+    // Create new user if not found
     const email = profile.emails[0].value;
-    const domain = email.split('@')[1];
-    const companyName = domain; 
 
-    const newUser = await User.create({
+    
+    user = await User.create({
       googleId: profile.id,
       displayName: profile.displayName,
       email: email,
       avatar: profile.photos[0]?.value,
-      companyName: companyName,
-      role: 'owner' 
+      companyName: 'ZUDIO', // Default empty, will be updated later
+      role: 'manager' // Default empty, will be updated later
     });
-
-    return done(null, newUser);
+    return done(null, user);
   } catch (err) {
     return done(err, null);
   }

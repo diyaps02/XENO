@@ -30,6 +30,7 @@ module.exports.uploadCSV = async (req, res) => {
         lastPurchase: new Date(row.lastPurchaseDate),
         totalSpend: Number(row.totalSpend),
         visitCount: Number(row.visitCount),
+        userId: user._id, // <-- required for audience size calculation
         createdBy: user._id,
         company: company
       });

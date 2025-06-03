@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { body } = require("express-validator");
-const userController = require("../controllers/usercontroller");
+const {getProfile,createUser} = require("../controllers/usercontroller");
 
 router.post(
   "/register",
@@ -12,19 +12,11 @@ router.post(
     body("role").notEmpty().withMessage("Role is required"),
     body("companyName").notEmpty().withMessage("Company name is required")
   ],
-  userController.registerUser
+  createUser
 );
 
-router.post(
-  "/login",
-  [
-    body("email").isEmail().withMessage("Invalid email"),
-    body("googleId").notEmpty().withMessage("Google ID is required")
-  ],
-  userController.loginUser
-);
 
-router.get("/getuser", userController.getUser);
-router.post("/logout", userController.logoutUser);
+router.get("/profile", getProfile);
+
 
 module.exports = router;

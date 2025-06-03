@@ -33,27 +33,29 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/');
+    const redirectTo = req.session.redirectTo || '/dashboard';
+    delete req.session.redirectTo;
+    res.redirect(`http://localhost:5173${redirectTo}`);
   }
 );
-
 app.get('/logout', (req, res, next) => {
   req.logout(err => {
     if (err) return next(err);
-    
     req.session.destroy(err => {
       if (err) return next(err);
       res.clearCookie('connect.sid');
-      res.redirect('http://localhost:5173/login');
+      res.redirect('/google-logout');
     });
   });
 });
 
+
 const uploadRoute = require('./routes/uploadRoutes');
-const userRoute = require('./routes/userroutes');
 const segmentRoute = require('./routes/segmentRoutes');
+const userRoutes = require('./routes/userroutes');
 
 
+app.use('/users', userRoutes);
 app.use("/api/v1/upload", uploadRoute);
 app.use("/api/v1/segment", segmentRoute);
 // app.use("/api/v1/users", userRoute);

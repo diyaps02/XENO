@@ -15,6 +15,15 @@ router.post(
   segmentController.createSegment
 );
 
+router.post(
+  "/preview",
+  [
+    body("criteria").notEmpty().withMessage("Criteria is required"),
+    body("email").isEmail().withMessage("A valid user email is required")
+  ],
+  segmentController.previewAudienceSize
+);
+
 // Get all segments
 router.get("/all", segmentController.getAllSegments);
 

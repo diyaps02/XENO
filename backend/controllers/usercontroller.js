@@ -1,53 +1,31 @@
-const usermodel = require("../models/usermodel");
-const userService = require("../services/userservices");
-const { validationResult } = require("express-validator");
+const User = require('../models/usermodel');
 
-module.exports.registerUser = async (req, res, next) => {
-  const error = validationResult(req);
-  if (!error.isEmpty()) {
-    return res.status(400).json({ error: error.array() });
+
+// Get current user profile (for authenticated user)
+exports.getProfile = async (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ message: 'Not authenticated' });
   }
-  const existingUser = await usermodel.findOne({ email: req.body.email });
-  if (existingUser) {
-    return res.status(400).json({ error: "User already exists" });
-  }
-  const { googleId, displayName, email, avatar, role, companyName } = req.body;
-  try {
-    const user = await userService.createUser({
-      googleId,
-      displayName,
-      email,
-      avatar,
-      role,
-      companyName,
-    });
-    return res.status(201).json({ user });
-  } catch (err) {
-    return res.status(400).json({ error: err.message });
-  }
+   res.json({
+    displayName: req.user.displayName,
+    email: req.user.email,
+    companyName: req.user.companyName,
+    avatar: req.user.avatar,
+    role: req.user.role,
+    googleId: req.user.googleId,
+    _id: req.user._id
+  });
 };
 
-module.exports.loginUser = async (req, res, next) => {
-  const error = validationResult(req);
-  if (!error.isEmpty()) {
-    return res.status(400).json({ error: error.array() });
-  }
-  const { email, googleId } = req.body;
-  const user = await usermodel.findOne({ email, googleId });
-  if (!user) {
-    return res.status(401).json({ error: "Invalid credentials" });
-  }
-  return res.status(200).json({ user });
-};
 
-module.exports.getUser = async (req, res, next) => {
-  const user = req.user;
-  if (!user) {
-    return res.status(404).json({ error: "User not found" });
-  }
-  return res.status(200).json({ user });
-};
+exports.createUser =async (req, res) => {
+ if (!req.user) return res.status(401).send("Unauthorized");
+   
+ console.log("Req:",req.body);
+  const { companyName, role } = req.body;
 
-module.exports.logoutUser = async (req, res, next) => {
-  return res.status(200).json({ message: "Logged out successfully" });
-};
+
+  User.findByIdAndUpdate(req.user._id, { companyName, role }, { new: true })
+    .then(updatedUser => res.json(updatedUser))
+    .catch(err => res.status(500).json({ error: 'Update failed', details: err }));
+    }
