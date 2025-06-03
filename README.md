@@ -13,10 +13,8 @@
         |                            |                               |
         |                            v                               |
         |                +---------------------+                    |
-        |                |  AI Tools (APIs):   |                    |
-        |                |  - OpenAI (ChatGPT) |                    |
-        |                |  - GrokAI           |                    |
-        |                |  - Copilot          |                    |
+        |                |  (No AI tools in    |                    |
+        |                |  deployed stack)    |                    |
         |                +---------------------+                    |
 ```
 
@@ -70,11 +68,8 @@
 - Visit `/login` to sign in with Google.
 - After login, access the dashboard, upload customer CSVs, create segments, and manage campaigns.
 
-## AI Tools & Tech Used
-- **ChatGPT (OpenAI):** Used for conversational AI and natural language processing.
-- **OpenAI API:** For advanced AI features and integrations.
-- **GrokAI:** For code analysis and suggestions.
-- **GitHub Copilot:** For code completion and developer productivity.
+## AI Usage Disclaimer
+This project does **not** include any custom AI features or integrations. AI tools (such as ChatGPT, GitHub Copilot, etc.) were only used to assist with code generation, refactoring, and documentation during development.
 
 ## Tech Stack
 - **Frontend:** React, Vite, Tailwind CSS
@@ -84,7 +79,6 @@
 - **Validation:** express-validator
 
 ## Known Limitations / Assumptions
-- AI features require valid API keys and may incur usage costs.
 - Google OAuth requires correct client credentials and callback URLs.
 - The backend expects a specific CSV format for customer uploads.
 - Segment criteria parsing is basic and may not support complex logical expressions.
@@ -92,5 +86,7 @@
 - Error handling and security hardening are basic and should be improved for production.
 
 ---
+
+**Note:** No custom AI tools (such as OpenAI, ChatGPT, GrokAI, Copilot, etc.) are part of the deployed application. AI was only used for development assistance and code generation, not as a feature or dependency in the running product.
 
 For questions or contributions, please open an issue or pull request.
