@@ -41,7 +41,7 @@
    MONGODB_URL=your_mongodb_connection_string
    GOOGLE_CLIENT_ID=your_google_client_id
    GOOGLE_CLIENT_SECRET=your_google_client_secret
-   GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
+   GOOGLE_CALLBACK_URL=https://mini-messager04.onrender.com/auth/google/callback
    JWT_SECRET=your_jwt_secret_key
    ```
 4. Start the backend server:

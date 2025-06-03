@@ -14,7 +14,7 @@ const CsvUploadForm = () => {
     formData.append("email", email);
     formData.append("file", file);
     try {
-      const response = await fetch("http://localhost:3000/api/v1/upload/upload-csv", {
+      const response = await fetch("https://mini-messager04.onrender.com/api/v1/upload/upload-csv", {
         method: "POST",
         body: formData,
       });

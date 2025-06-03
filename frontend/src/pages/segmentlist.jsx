@@ -10,7 +10,7 @@ const SegmentList = () => {
   useEffect(() => {
     const fetchSegments = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/v1/segment/all")
+        const response = await fetch("https://mini-messager04.onrender.com/api/v1/segment/all")
         const data = await response.json()
         setSegments(data.segments || [])
       } catch (error) {
@@ -27,7 +27,7 @@ const SegmentList = () => {
     if (!confirm("Are you sure you want to delete this segment?")) return
 
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/segment/${id}`, {
+      const response = await fetch(`https://mini-messager04.onrender.com/api/v1/segment/${id}`, {
         method: "DELETE",
       })
 

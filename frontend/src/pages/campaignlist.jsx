@@ -12,7 +12,7 @@ const CampaignList = () => {
     const fetchData = async () => {
       try {
         // Get user profile
-        const userResponse = await fetch("http://localhost:3000/users/profile", {
+        const userResponse = await fetch("https://mini-messager04.onrender.com/users/profile", {
           credentials: "include",
         })
         if (userResponse.ok) {
@@ -20,7 +20,7 @@ const CampaignList = () => {
           setUser(userData)
 
           // Get campaigns
-          const campaignsResponse = await fetch(`http://localhost:3000/api/v1/campaign/all?email=${userData.email}`)
+          const campaignsResponse = await fetch(`https://mini-messager04.onrender.com/api/v1/campaign/all?email=${userData.email}`)
           const campaignsData = await campaignsResponse.json()
           setCampaigns(campaignsData.campaigns || [])
         }
@@ -38,7 +38,7 @@ const CampaignList = () => {
     if (!confirm("Are you sure you want to delete this campaign?")) return
 
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/campaign/${id}`, {
+      const response = await fetch(`https://mini-messager04.onrender.com/api/v1/campaign/${id}`, {
         method: "DELETE",
       })
 
@@ -57,13 +57,13 @@ const CampaignList = () => {
     if (!confirm("Are you sure you want to send this campaign?")) return
 
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/campaign/${id}/send`, {
+      const response = await fetch(`https://mini-messager04.onrender.com/api/v1/campaign/${id}/send`, {
         method: "POST",
       })
 
       if (response.ok) {
         // Refresh campaigns list
-        const campaignsResponse = await fetch(`http://localhost:3000/api/v1/campaign/all?email=${user.email}`)
+        const campaignsResponse = await fetch(`https://mini-messager04.onrender.com/api/v1/campaign/all?email=${user.email}`)
         const campaignsData = await campaignsResponse.json()
         setCampaigns(campaignsData.campaigns || [])
       } else {

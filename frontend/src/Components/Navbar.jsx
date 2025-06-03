@@ -9,7 +9,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:3000/users/profile", {
+        const response = await fetch("https://mini-messager04.onrender.com/users/profile", {
           credentials: "include",
         })
         if (response.ok) {
@@ -26,7 +26,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:3000/logout", {
+      await fetch("https://mini-messager04.onrender.com/logout", {
         method: "GET",
         credentials: "include",
       })

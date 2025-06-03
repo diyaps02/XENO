@@ -1,7 +1,7 @@
 import React from "react"
 const Login = () => {
   const handleGoogleLogin = () => {
-    const googleAuthUrl = "http://localhost:3000/auth/google";
+    const googleAuthUrl = "https://mini-messager04.onrender.com/auth/google";
     window.location.href = googleAuthUrl;
   };
 

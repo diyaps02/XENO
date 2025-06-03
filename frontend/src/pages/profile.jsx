@@ -11,7 +11,7 @@ const Profile = () => {
 
   useEffect(() => {
     if(!companyName && !role) setShowForm(true);
-    fetch('http://localhost:3000/users/profile', {
+    fetch('https://mini-messager04.onrender.com/users/profile', {
       method: 'GET',
       credentials: 'include',
     })
@@ -40,7 +40,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:3000/logout', {
+      await fetch('https://mini-messager04.onrender.com/logout', {
         method: 'GET',
         credentials: 'include',
       });
@@ -55,7 +55,7 @@ const Profile = () => {
     if (!companyName || !role) return;
 
     try {
-      const res = await fetch('http://localhost:3000/users/register', {
+      const res = await fetch('https://mini-messager04.onrender.com/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

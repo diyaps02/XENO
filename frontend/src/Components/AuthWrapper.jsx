@@ -10,7 +10,7 @@ const AuthWrapper = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch("http://localhost:3000/users/profile", {
+        const response = await fetch("https://mini-messager04.onrender.com/users/profile", {
           method: "GET",
           credentials: "include",
         })
@@ -21,7 +21,7 @@ const AuthWrapper = ({ children }) => {
             setIsAuthenticated(true)
           } else {
             // Redirect to Google login with redirect param set to current path
-            window.location.href = `http://localhost:3000/auth/google?redirect=${encodeURIComponent(
+            window.location.href = `https://mini-messager04.onrender.com/auth/google?redirect=${encodeURIComponent(
               window.location.pathname
             )}`
           }

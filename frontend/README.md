@@ -87,7 +87,7 @@ This frontend is built with React, Vite, and Tailwind CSS. It provides a modern 
 ---
 
 ## Notes
-- The frontend expects the backend to be running at `http://localhost:3000`.
+- The frontend expects the backend to be running at `https://mini-messager04.onrender.com`.
 - For Google OAuth, the backend handles authentication and redirects back to the frontend.
 - Tailwind CSS is used for styling.
 

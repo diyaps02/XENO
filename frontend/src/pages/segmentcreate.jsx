@@ -19,7 +19,7 @@ const SegmentCreate = () => {
   useState(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:3000/users/profile", {
+        const response = await fetch("https://mini-messager04.onrender.com/users/profile", {
           credentials: "include",
         })
         if (response.ok) {
@@ -44,7 +44,7 @@ const SegmentCreate = () => {
 
     setLoading(true)
     try {
-      const response = await fetch("http://localhost:3000/api/v1/segment/preview", {
+      const response = await fetch("https://mini-messager04.onrender.com/api/v1/segment/preview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const SegmentCreate = () => {
 
     setLoading(true)
     try {
-      const response = await fetch("http://localhost:3000/api/v1/segment/create", {
+      const response = await fetch("https://mini-messager04.onrender.com/api/v1/segment/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,7 +12,7 @@ const CampaignDetail = () => {
   useEffect(() => {
     const fetchCampaign = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/campaign/${id}`)
+        const response = await fetch(`https://mini-messager04.onrender.com/api/v1/campaign/${id}`)
         const data = await response.json()
         setCampaign(data.campaign)
       } catch (error) {

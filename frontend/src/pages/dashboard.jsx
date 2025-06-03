@@ -16,7 +16,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Get user profile
-        const userResponse = await fetch("http://localhost:3000/users/profile", {
+        const userResponse = await fetch("https://mini-messager04.onrender.com/users/profile", {
           credentials: "include",
         })
         if (userResponse.ok) {
@@ -24,11 +24,11 @@ const Dashboard = () => {
           setUser(userData)
 
           // Get segments
-          const segmentsResponse = await fetch("http://localhost:3000/api/v1/segment/all")
+          const segmentsResponse = await fetch("https://mini-messager04.onrender.com/api/v1/segment/all")
           const segmentsData = await segmentsResponse.json()
 
           // Get campaigns
-          const campaignsResponse = await fetch(`http://localhost:3000/api/v1/campaign/all?email=${userData.email}`)
+          const campaignsResponse = await fetch(`https://mini-messager04.onrender.com/api/v1/campaign/all?email=${userData.email}`)
           const campaignsData = await campaignsResponse.json()
 
           setStats({

@@ -20,7 +20,7 @@ const CampaignCreate = () => {
     const fetchData = async () => {
       try {
         // Get user profile
-        const userResponse = await fetch("http://localhost:3000/users/profile", {
+        const userResponse = await fetch("https://mini-messager04.onrender.com/users/profile", {
           credentials: "include",
         })
         if (userResponse.ok) {
@@ -29,7 +29,7 @@ const CampaignCreate = () => {
         }
 
         // Get segments
-        const segmentsResponse = await fetch("http://localhost:3000/api/v1/segment/all")
+        const segmentsResponse = await fetch("https://mini-messager04.onrender.com/api/v1/segment/all")
         const segmentsData = await segmentsResponse.json()
         setSegments(segmentsData.segments || [])
 
@@ -63,7 +63,7 @@ const CampaignCreate = () => {
 
     setLoading(true)
     try {
-      const response = await fetch("http://localhost:3000/api/v1/campaign/create", {
+      const response = await fetch("https://mini-messager04.onrender.com/api/v1/campaign/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const CampaignCreate = () => {
         const data = await response.json()
         // Optionally send the campaign immediately
         if (confirm("Campaign created! Do you want to send it now?")) {
-          await fetch(`http://localhost:3000/api/v1/campaign/${data.campaign._id}/send`, {
+          await fetch(`https://mini-messager04.onrender.com/api/v1/campaign/${data.campaign._id}/send`, {
             method: "POST",
           })
         }
