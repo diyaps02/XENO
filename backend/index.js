@@ -35,7 +35,7 @@ app.get('/auth/google/callback',
   (req, res) => {
     const redirectTo = req.session.redirectTo || '/dashboard';
     delete req.session.redirectTo;
-    res.redirect(`http://localhost:5173${redirectTo}`);
+    res.redirect(`https://mini-messanger04.onrender.com${redirectTo}`);
   }
 );
 app.get('/logout', (req, res, next) => {
