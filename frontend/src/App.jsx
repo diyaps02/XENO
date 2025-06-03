@@ -9,6 +9,7 @@ import CampaignCreate from "./pages/campaigncreate"
 import CampaignList from "./pages/campaignlist"
 import CampaignDetail from "./pages/campaigndetails"
 import AuthWrapper from "./Components/AuthWrapper"
+import CsvUploadForm from "./pages/csvupload"
 
 const App = () => {
   return (
@@ -72,6 +73,7 @@ const App = () => {
             </AuthWrapper>
           }
         />
+        <Route path="/upload-csv" element={<CsvUploadForm />} />
       </Routes>
     </div>
   )

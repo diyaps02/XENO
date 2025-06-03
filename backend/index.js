@@ -53,11 +53,13 @@ app.get('/logout', (req, res, next) => {
 const uploadRoute = require('./routes/uploadRoutes');
 const segmentRoute = require('./routes/segmentRoutes');
 const userRoutes = require('./routes/userroutes');
+const campaignRoutes = require('./routes/campaignRoutes');
 
 
 app.use('/users', userRoutes);
 app.use("/api/v1/upload", uploadRoute);
 app.use("/api/v1/segment", segmentRoute);
+app.use("/api/v1/campaign", campaignRoutes);
 // app.use("/api/v1/users", userRoute);
 
 
